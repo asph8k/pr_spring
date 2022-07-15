@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,22 +18,34 @@ public class BoardController {
 	@Autowired
 	private IBoardService service;
 	
-	//±Û ¸ñ·Ï º¸±â ¿äÃ»Ã³¸®
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»Ã³ï¿½ï¿½
 	@GetMapping("/boardList")
 	public void BoardList(Model model) {
 		model.addAttribute("bList", service.getList());
 	}
 	
-	//±Û ÀÛ¼º ÆäÀÌÁö ÀÌµ¿ ¿äÃ» Ã³¸®
+	//ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½Ã» Ã³ï¿½ï¿½
 	@GetMapping("/boardRegist")
 	public void BoardRegist() {
 	}
 	
-	//±Û µî·Ï ¿äÃ» Ã³¸®
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» Ã³ï¿½ï¿½
 	@PostMapping("/boardRegist")
 	public String BoardRegist(BoardVO vo) {
 		service.regist(vo);
 		return "redirect:/board/boardList";
 	}
 	
+	//ê¸€ ìƒì„¸ë³´ê¸° ìš”ì²­ ì²˜ë¦¬
+	@GetMapping("/boardDetail/{bno}")
+	public String BoardDetail(@PathVariable int bno, Model model) {
+		model.addAttribute("board", service.getContent(bno));
+		return "/board/boardDetail";
+	}
+	
+	//ê¸€ ìˆ˜ì • í˜ì´ì§€ ì´ë™ ìš”ì²­ ì²˜ë¦¬
+	@GetMapping("/boardModify")
+	public void BoardModify(int bno, Model model) {
+		model.addAttribute("board", service.getContent(bno));
+	}
 }

@@ -15,13 +15,18 @@
 	</resultMap>
 	
 	<insert id="regist">
-		INSERT INTO prboard
+		INSERT INTO pboard
 		(b_num, b_writer, b_title, b_content)
 		VALUES(b_num_seq.NEXTVAL, #{bWriter}, #{bTitle}, #{bContent})
 	</insert>
 	
 	<select id="getList" resultMap="BoardMap">
-		SELECT * FROM prboard
+		SELECT * FROM pboard
+	</select>
+	
+	<select id="getContent" resultMap="BoardMap">
+		SELECT * FROM pboard
+		WHERE b_num = #{bNum}
 	</select>
 	
 </mapper>
