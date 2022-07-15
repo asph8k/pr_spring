@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-Config.dtd">
+  
+<!-- mybatis 설정 -->
+<configuration>
+
+	<settings>
+		<!-- mybatis에서 쿼리에 맵핑되는 파라미터에 NULL이 들어가면 에러가 발생함으로 
+			 value에 전달할 값이 null일 경우 처리할 값을 지정하면 에러가 발생하지 않도록 해줌-->
+			 
+		<!-- <setting name="jdbcTypeForNull" value="VARCHAR"/> -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		<!-- mybatis로 전송된 값의 type null이면 value값으로 바꿔줌 -->
+		
+		<setting name="defaultStatementTimeout" value="3000" />
+		<!-- DB로 부터의 응답을 얼만큼 오래 기다릴지를 판단하는 타임아웃 설정 -->
+	</settings>
+	
+<!-- 	<typeAliases>
+		select할 때 resultType이 길어지는 것을 별칭으로 만들어줌 
+		<typeAlias type="com.spring.myweb.command.UserVO" alias="UserVO" />
+		<typeAlias type="com.spring.myweb.command.ReplyVO" alias="ReplyVO" />
+		<typeAlias type="com.spring.myweb.command.FreeBoardVO" alias="FreeBoardVO" />
+		<typeAlias type="com.spring.myweb.command.SnsBoardVO" alias="SnsBoardVO" />		
+	</typeAliases> -->
+	
+	<!-- 여기서도 mapper 위치 지정 가능 
+		  하지만 root-context에 작성했기 때문에 굳이 지금 작성 하지 않아도 됨 -->
+	<!-- <mappers>
+		<mapper resource="classpath:/mappers/*.xml" />
+	</mappers> -->
+	
+</configuration>

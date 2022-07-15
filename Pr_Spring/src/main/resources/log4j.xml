@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	
+	<!-- 
+		자바를 이용한 백엔드 로직을 작성하다 보면, 결과를 확인하기 위해 
+		System.out.println()를 사용해왔음 
+		System.out.println()은 단순 출력 이상의 기능을 수행할 수 없기 때문에 
+		로그에 대한 다양한 기능을 제공하는 log4j 라이브러리를 사용 
+	 -->
+	 
+	<!-- Appenders -->
+	<!-- appenders : 로그의 출력 위치(파일 ,콘솔, DB등)를 결정  -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<!-- 출력 형식 지정 가능  -->
+		</layout>
+	</appender>
+	
+	 <!-- 날짜별 로그 파일 생성 -->
+    <appender name="rollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+<!--         <param name="File" value="C:/Spring/LOG/all.log"/> -->
+        <param name="File" value="/Users/sig6774/Review_Spring/LOG/all.log"/>        
+		<param name="Append" value="true"/>
+        <!-- param name="MaxFileSize" value="100MB"/ -->
+        <!-- param name="MaxBackupIndex" value="2"></param -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <!-- 
+        	%p : 로그 레벨 출력 첨부(info, error, warn)
+        	%m : 로그 메세지 첨부 
+        	%c : 전체 패키지 명 또는 파일 이름 첨부 (%C : 클래스 이름 )
+        	%d : 이벤트 발생 시각 (yyyy-mm-dd ...) 첨부
+        	숫자 : 공백, 글자가 차지할 공간, 음수로 주면 좌측정렬, 양수 주면 우측정렬  
+         -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %p [%C{10}] %m [%X{userId}]%n" />
+        </layout>  
+    </appender>
+    
+    <!-- 날짜별 로그 파일 생성(에러만) -->
+    <appender name="errFile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Threshold" value="ERROR"/>
+        
+        <!-- <param name="File" value="C:/Spring/LOG/error.log"/> -->
+        <param name="File" value="/Users/sig6774/Review_Spring/LOG/error.log"/>
+        <param name="Append" value="true"/>
+        <!-- param name="MaxFileSize" value="100MB"/ -->
+        <!-- param name="MaxBackupIndex" value="2"></param -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %5p [%C{1}] %m [%X{userId}]%n" />
+        </layout>  
+    </appender>
+	
+	
+	
+	<!-- aop 패키지를 로그 레벨로 추가 -->
+	<logger name="com.spring.myweb.util.aop">
+		<!-- aop패키지 경로를 name에 지정  -->
+		<level value="info" />
+		<!-- <level value="error" /> -->
+		
+		<!-- value에 여러가지 로그 레벨을 지정할 수 있음 
+			 FATAL, ERROR, WARN, INFO, DEBUG, TRACE 
+		-->
+	
+	</logger>
+	
+	<!-- Application Loggers -->
+	<logger name="com.spring.myweb">
+		<level value="info" />
+	</logger>
+	
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core">
+		<level value="info" />
+		
+	</logger>
+	
+	<logger name="org.springframework.beans">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.context">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="info" />
+	</logger>
+	
+	<!-- SQL LOGGER -->
+	<!-- DB연결에 관련된 이벤트를 기록(Connection pool 등) 
+		 문제가 발생한다면  해당 내용만 출력 -->
+	<logger name = "jdbc.connection" additivity="false">
+		<level valuie="warn"/>
+		<appender-ref ref="console" />
+	</logger>
+	
+	<!-- Resultset을 제외한 모든 JDBC 호출 내역을 기록 -->
+	<logger name = "jdbc.audit" additivity="false">
+		<level valuie="warn"/>
+		<appender-ref ref="console" />
+	</logger>
+	
+	<!-- Resultset을 포함한 모든 JDBC 호출 내역을 기록 -->
+	<logger name = "jdbc.resultset" additivity="false">
+		<level valuie="warn"/>
+		<appender-ref ref="console" />
+	</logger>
+	
+	<!-- sql문만 기록하는 로그(?값이 드러남) -->
+	<logger name = "jdbc.sqlonly" additivity="false">
+		<level valuie="info"/>
+		<appender-ref ref="console" />
+	</logger>
+	
+	<!-- table 모양으로 조회된 내용을 기록  -->
+	<logger name = "jdbc.resultsettable" additivity="false">
+		<level valuie="info"/>
+		<appender-ref ref="console" />
+	</logger>
+	
+	<!-- 해당 sql을 실행시키는데 소요된 시간 정보 기록(밀릴초)  -->
+	<logger name = "jdbc.sqltiming" additivity="false">
+		<level valuie="info"/>
+		<appender-ref ref="console" />
+	</logger>
+
+	<!-- Root Logger -->
+	<root>
+		<priority value="info" />
+		<appender-ref ref="console" />
+		<!-- 위에서 작성한 내용을 참고할 수 있음 -->
+		<appender-ref ref="errFile" />
+		<appender-ref ref="rollingFile" />
+	</root>
+	
+</log4j:configuration>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.pr.board.mapper.IBoardMapper">
+	<!-- namespace는 어떤 interface를 참조하는지 지정  -->
+	
+	<resultMap type="com.spring.pr.command.BoardVO" id="BoardMap">
+		<id property="bNum" column="b_num"/>
+		<result property="bWriter" column="b_writer"/>
+		<result property="bTitle" column="b_title"/>
+		<result property="bContent" column="b_content"/>
+		<result property="bDate" column="b_date"/>
+	</resultMap>
+	
+	<insert id="regist">
+		INSERT INTO prboard
+		(b_num, b_writer, b_title, b_content)
+		VALUES(b_num_seq.NEXTVAL, #{bWriter}, #{bTitle}, #{bContent})
+	</insert>
+	
+	<select id="getList" resultMap="BoardMap">
+		SELECT * FROM prboard
+	</select>
+	
+</mapper>
