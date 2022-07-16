@@ -23,7 +23,7 @@
 					<h2>
 						게시판 상세보기<small>(디자인이궁금하세요?)</small>
 					</h2>
-
+					
 					<form action="<c:url value='/board/boardModify?BNum=${board.BNum }&writer=${board.BWriter }'/>" method="get" name="modiBtn">
 					<!-- 이거 왜 파라미터 안먹히는거지? -->
 						<div class="form-group">
@@ -76,7 +76,7 @@
 				}
 			});
 			
-			$('#modiBtn').click(function(){
+			 $('#modiBtn').click(function(){
 				console.log('수정 요청 버튼 클릭 ');
 				
 				if (confirm('수정하시겠습니까?')){

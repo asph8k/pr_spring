@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,9 @@ public class BoardController {
 	
 	//글 수정 페이지 이동 요청 처리
 	@GetMapping("/boardModify")
-	public void BoardModify(int bno, Model model) {
+	public String BoardModify(int bno, Model model, BoardVO vo) {
 		model.addAttribute("board", service.getContent(bno));
+		return "/board/boardModify" + vo.getBWriter();
 	}
+	
 }
