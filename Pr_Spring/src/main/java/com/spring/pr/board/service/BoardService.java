@@ -37,8 +37,7 @@ public class BoardService implements IBoardService {
 
 	@Override
 	public void update(BoardVO board) {
-		// TODO Auto-generated method stub
-
+		mapper.update(board);
 	}
 
 	@Override
