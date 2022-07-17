@@ -45,27 +45,12 @@ public class BoardController {
 		model.addAttribute("board", service.getContent(bno));
 		return "/board/boardDetail";
 	}
-	/*
-	//글 수정 페이지 이동 요청 처리
-	@GetMapping("/boardModify")
-	public ModelAndView BoardModify(int bno) {
-		BoardVO article = service.getContent(bno);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("board", article);
-		mv.setViewName("/board/boardModify");
-		return mv;
-	}
-	*/
 	
-	//글 수정 페이지 이동 요청 처리
+	//글 수정페이지 이동 요청 처리
 	@GetMapping("/boardModify")
-	public void BoardModify() {
-		
+	public String BoardModify(BoardVO vo, Model model) {
+		BoardVO board = service.getContent(vo.getBNum());
+		model.addAttribute("board", board);
+		return "/board/boardModify";
 	}
-	/*
-	//글 내용 수정 요청 처리
-	@PostMapping("/boardModify")
-	public String BoardModify(@RequestParam("BTitle") String title, @RequestParam("BContent") String content) {
-		
-	}*/
 }
