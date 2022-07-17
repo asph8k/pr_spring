@@ -62,11 +62,10 @@ public class BoardController {
 	public void BoardModify() {
 		
 	}
-	
+	/*
 	//글 내용 수정 요청 처리
 	@PostMapping("/boardModify")
-	public String BoardModify(BoardVO vo) {
-		service.update(vo);
-		return "redirect:/board/boardDetail";
-	}
+	public String BoardModify(@RequestParam("BTitle") String title, @RequestParam("BContent") String content) {
+		
+	}*/
 }
