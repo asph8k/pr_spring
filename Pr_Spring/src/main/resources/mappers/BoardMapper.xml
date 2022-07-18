@@ -24,6 +24,11 @@
 		SELECT * FROM pboard
 	</select>
 	
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(*)
+		FROM pboard
+	</select>
+	
 	<select id="getContent" resultMap="BoardMap">
 		SELECT * FROM pboard
 		WHERE b_num = #{bNum}
@@ -34,5 +39,10 @@
 		SET b_title = #{bTitle}, b_content = #{bContent}
 		WHERE b_num = #{bNum}
 	</update>
+	
+	<delete id="delete">
+		DELETE FROM pboard
+		WHERE b_num = #{bNum}
+	</delete>
 	
 </mapper>

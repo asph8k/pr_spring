@@ -29,6 +29,14 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="boardInterceptor" class="com.spring.pr.util.interceptor.UpDel" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/board/**"/>
+			<beans:ref bean="boardInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 	<!-- annotation으로 등록된 클래스 객체들을 탐색해 주는 설정 태그이며 
 		 base-package에다가 탐색한 패키지 경로를 작성하면 하위 패키지까지 모두 검색  -->

@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.pr.board.service.IBoardService;
 import com.spring.pr.command.BoardVO;
@@ -52,5 +50,19 @@ public class BoardController {
 		BoardVO board = service.getContent(vo.getBNum());
 		model.addAttribute("board", board);
 		return "/board/boardModify";
+	}
+	
+	//글 수정 요청 처리
+	@PostMapping("/boardModify")
+	public String BoardModify(BoardVO vo) {
+		service.update(vo);
+		return "redirect:/board/boardDetail";
+	}
+	
+	//글 삭제 요청 처리
+	@GetMapping("/boardDelete/{bno}")
+	public String BoardDelete(@PathVariable int bno) {
+		service.delete(bno);
+		return "redirect:/board/boardList";
 	}
 }

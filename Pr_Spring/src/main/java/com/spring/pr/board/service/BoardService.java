@@ -26,8 +26,7 @@ public class BoardService implements IBoardService {
 
 	@Override
 	public int getTotal() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.getTotal();
 	}
 
 	@Override
@@ -42,8 +41,7 @@ public class BoardService implements IBoardService {
 
 	@Override
 	public void delete(int bno) {
-		// TODO Auto-generated method stub
-
+		mapper.delete(bno);
 	}
 
 }
