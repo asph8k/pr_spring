@@ -23,7 +23,7 @@
 	
 	<select id="login" resultMap="UserMap">
 		SELECT * FROM 
-		WHERE u_UserId = #{id}, u_UserPw = #{pw}
+		WHERE u_UserId = #{userId} AND u_UserPw = #{userPw}
 	</select>
 	
 </mapper>
