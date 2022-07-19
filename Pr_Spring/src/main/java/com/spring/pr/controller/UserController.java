@@ -1,6 +1,5 @@
 package com.spring.pr.controller;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +36,7 @@ public class UserController {
 	
 	//로그인 요청 처리
 	@PostMapping("/userLogin")
-	public String UserLogin(@Param("userId") String id, @Param("userPw") String pw) {
+	public String UserLogin(@RequestParam("userId") String id, @RequestParam("userPw") String pw) {
 		service.login(id, pw);
 		return "/user/userMypage";
 	}
